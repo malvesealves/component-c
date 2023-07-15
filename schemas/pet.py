@@ -2,15 +2,13 @@ from pydantic import BaseModel
 from typing import Optional, List
 from model.pet import Pet
 
-from schemas import ContatoSchema, TipoAnimalSchema
-
 
 class PetSchema(BaseModel):
     """ Define como um novo pet a ser inserido deve ser representado
     """
-    tipo_animal_id: int = 1
     nome: str = "Scooby-Doo"
     idade: Optional[int] = 12
+    responsavel: str = "Salsicha"
 
 
 class PetBuscaSchema(BaseModel):
@@ -33,9 +31,9 @@ def apresenta_pets(pets: List[Pet]):
     result = []
     for pet in pets:
         result.append({
-            "tipo_animal": pet.tipo_animal,
             "nome": pet.nome,
-            "idade": pet.idade
+            "idade": pet.idade,
+            "responsavel": pet.responsavel
         })
 
     return {"pets": result}
@@ -45,12 +43,9 @@ class PetViewSchema(BaseModel):
     """ Define como um pet será retornado: pet + contatos.
     """
     id: int = 1
-    tipo: TipoAnimalSchema
     nome: str = "Scooby-Doo"
     idade: Optional[int] = 12
-    valor: float = 12.50
-    total_contatos: int = 1
-    contatos:List[ContatoSchema]
+    responsavel: str = "Salsicha"
 
 
 class PetDelSchema(BaseModel):
@@ -66,9 +61,7 @@ def apresenta_pet(pet: Pet):
     """
     return {
         "id": pet.id,
-        "tipo_animal": pet.tipo_animal,
         "nome": pet.nome,
         "idade": pet.idade,
-        "total_contatos": len(pet.contatos),
-        "contatos": [{"contato": c.tipo_contato + " " + c.nome} for c in pet.contatos]
+        "responsavel": pet.responsavel
     }
