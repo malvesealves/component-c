@@ -40,7 +40,7 @@ def apresenta_pets(pets: List[Pet]):
 
 
 class PetViewSchema(BaseModel):
-    """ Define como um pet será retornado: pet + contatos.
+    """ Define como um pet será retornado: pet.
     """
     id: int = 1
     nome: str = "Scooby-Doo"
