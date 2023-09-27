@@ -16,14 +16,18 @@ class Pet(Base):
     data_insercao = Column(DateTime, default=datetime.now())
 
     def __init__(self, tipo: str, nome: str, idade: str, id_responsavel: Integer, data_insercao:Union[DateTime, None] = None):
+
         """
         Cria um Pet
 
         Arguments:
             tipo: tipo de pet
             nome: nome do pet a ser cadastrado
+            nome: nome do pet
             idade: idade do pet
+            responsavel: responsável do pet
             data_insercao: data de quando o pet foi inserido à base
+
         """
         self.tipo = tipo
         self.nome = nome

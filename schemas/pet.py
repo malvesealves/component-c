@@ -9,6 +9,12 @@ class PetSchema(BaseModel):
     idade: str = "1"
     id_responsavel: int = 1     
 
+class PetBuscaSchema(BaseModel):
+    """ Define como deve ser a estrutura que representa a busca. Que será
+        feita com base no nome do pet.
+    """
+    nome: str = "Teste"
+
 class PetViewSchema(BaseModel):
     """ Define como um pet será retornado: pet"""
     tipo: str = "Cachorro"
@@ -42,6 +48,21 @@ def apresenta_pets(pets: List[Pet]):
         })
     return {"pets": result}
 
+class PetViewSchema(BaseModel):
+    """ Define como um pet será retornado: pet.
+    """
+    id: int = 1
+    nome: str = "Scooby-Doo"
+    idade: int = 1
+    responsavel: str = "Salsicha"
+
+
+class PetDelSchema(BaseModel):
+    """ Define como deve ser a estrutura do dado retornado após uma requisição
+        de remoção.
+    """
+    mesage: str
+    nome: str
 
 def apresenta_pet(pet: Pet):
     """ Retorna uma representação do pet seguindo o schema definido em PetViewSchema."""

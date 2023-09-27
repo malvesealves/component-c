@@ -2,6 +2,9 @@ from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
 
 from model import Session, Pet, Responsavel, Endereco, Contato
+from sqlalchemy.exc import IntegrityError
+
+from model import Session, Pet
 from logger import logger
 from schemas import *
 from flask_cors import CORS, cross_origin
@@ -58,21 +61,25 @@ def get_pets():
         return apresenta_pets(items), 200
 
 
-@app.get('/item', tags=[pet_tag], responses={"200": PetViewSchema, "404": ErrorSchema})
-def get_item(query: PetBuscaSchema):
-    """Faz a busca por um Pet a partir do nome do pet  e retorna uma representação dos items."""
-    pet_nome = query.nome
-    logger.debug(f"Coletando dados sobre item #{pet_nome}")    
-    session = Session()
-    item = session.query(Pet).filter(Pet.descricao == pet_nome).first()
+@app.get('/pet', tags=[pet_tag],
+         responses={"200": PetViewSchema, "404": ErrorSchema})
+def get_pet(query: PetBuscaSchema):
+    """Faz a busca por um Pet a partir do id do pet
 
-    if not item:
-        error_msg = "Item não encontrado na base :/"
-        logger.warning(f"Erro ao buscar item '{pet_nome}', {error_msg}")
+    Retorna uma representação dos pets e comentários associados.
+    """
+    pet_id = query.id
+    logger.debug(f"Coletando dados sobre pet #{pet_id}")    
+    session = Session()
+    pet = session.query(Pet).filter(Pet.id == pet_id).first()
+
+    if not pet:
+        error_msg = "Pet não encontrado na base :/"
+        logger.warning(f"Erro ao buscar pet '{pet_id}', {error_msg}")
         return {"message": error_msg}, 404
     else:
-        logger.debug(f"Pet encontrado: '{item.descricao}'")
-        return apresenta_pet(item), 200
+        logger.debug(f"Pet econtrado: '{pet.nome}'")        
+        return apresenta_pet(pet), 200
 
 
 @app.delete('/item', tags=[pet_tag], responses={"200": PetDelSchema, "404": ErrorSchema})
