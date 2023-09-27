@@ -20,7 +20,7 @@ $ docker build -t component-c-api
 
 3 - Após a criação da imagem, executar como adminitrador o seguinte comando para rodar o container:
 ```
-$ docker run -p 8000:8000 rest-apic2
+$ docker run -p 8000:80 componen-c-api
 ```
 
 Após seguir todos os passos, abrir o link abaixo no bavegador para verificar o status da API em execução
