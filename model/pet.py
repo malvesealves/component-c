@@ -9,7 +9,7 @@ class Pet(Base):
 
     id = Column("id_pet", Integer, primary_key=True)
     tipo = Column(String(50))
-    nome = Column(String(100),primary_key=True)
+    nome = Column(String(100))
     idade = Column(String(50))
     id_responsavel = Column(Integer, ForeignKey("responsavel.id_responsavel"), nullable=False)
     responsavel = relationship('Responsavel')

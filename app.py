@@ -82,22 +82,22 @@ def get_pet(query: PetBuscaSchema):
         return apresenta_pet(pet), 200
 
 
-@app.delete('/item', tags=[pet_tag], responses={"200": PetDelSchema, "404": ErrorSchema})
-def del_item(query: PetBuscaSchema):
-    """Deleta um Item a partir da descricao de item informado e retorna uma mensagem de confirmação da remoção."""
-    item_descricao = (query.nome)
-    print(item_descricao)
-    logger.debug(f"Deletando dados sobre item #{item_descricao}")
+@app.delete('/pet', tags=[pet_tag], responses={"200": PetDelSchema, "404": ErrorSchema})
+def del_pet(query: PetBuscaSchema):
+    """Deleta um Pet a partir da descricao de item informado e retorna uma mensagem de confirmação da remoção."""
+    pet_nome = (query.nome)
+    print(pet_nome)
+    logger.debug(f"Deletando dados sobre pet #{pet_nome}")
     session = Session()
-    count = session.query(Pet).filter(Pet.descricao == item_descricao).delete()
+    count = session.query(Pet).filter(Pet.nome == pet_nome).delete()
     session.commit()
 
     if count:
-        logger.debug(f"Deletado item #{item_descricao}")
-        return {"message": "Item removido", "id": item_descricao}
+        logger.debug(f"Deletado pet #{pet_nome}")
+        return {"message": "Pet removido", "id": pet_nome}
     else:
-        error_msg = "Item não encontrado na base :/"
-        logger.warning(f"Erro ao deletar item #'{item_descricao}', {error_msg}")
+        error_msg = "Pet não encontrado na base :/"
+        logger.warning(f"Erro ao deletar pet #'{pet_nome}', {error_msg}")
         return {"message": error_msg}, 404
 
 @app.get('/responsaveis', tags=[responsavel_tag])
