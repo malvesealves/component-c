@@ -1,43 +1,34 @@
-from sqlalchemy import Column, String, Integer, DateTime, Float, ForeignKey
+from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
-
-from  model import Base, Contato
-
+from model import Base
 
 class Pet(Base):
     __tablename__ = 'pet'
 
-    id = Column("pk_pet", Integer, primary_key=True)
-    nome = Column(String(140), unique=True)
-    idade = Column(Integer)
+    id = Column("id_pet", Integer, primary_key=True)
+    tipo = Column(String(50))
+    nome = Column(String(100),primary_key=True)
+    idade = Column(String(50))
+    id_responsavel = Column(Integer, ForeignKey("responsavel.id_responsavel"), nullable=False)
+    responsavel = relationship('Responsavel')
     data_insercao = Column(DateTime, default=datetime.now())
 
-    tipo_animal = Column(Integer, ForeignKey("tipo_animal.pk_tipo_animal"), unique=True, nullable=False )
-
-    contatos = relationship("Contato")
-
-    def __init__(self, tipo_animal:int, nome:str, idade:int,
-                 data_insercao:Union[DateTime, None] = None):
+    def __init__(self, tipo: str, nome: str, idade: str, id_responsavel: Integer, data_insercao:Union[DateTime, None] = None):
         """
-        Cria um pet
+        Cria um Pet
 
         Arguments:
             tipo: tipo de pet
-            nome: nome do pet
+            nome: nome do pet a ser cadastrado
             idade: idade do pet
             data_insercao: data de quando o pet foi inserido à base
         """
-        self.tipo_animal = tipo_animal
+        self.tipo = tipo
         self.nome = nome
         self.idade = idade
+        self.id_responsavel = id_responsavel
 
         if data_insercao:
             self.data_insercao = data_insercao
-
-    def adiciona_contato(self, contato:Contato):
-        """ Adiciona um novo contato de responsável ao Pet
-        """
-        self.contatos.append(contato)
-

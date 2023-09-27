@@ -2,10 +2,13 @@ from logging.config import dictConfig
 import logging
 import os
 
-log_path = "log/"
 
-if not os.path.exists(log_path):   
+log_path = "log/"
+# Verifica se o diretorio para armexanar os logs não existe
+if not os.path.exists(log_path):
+   # então cria o diretorio
    os.makedirs(log_path)
+
 
 dictConfig({
     "version": 1,
@@ -24,6 +27,16 @@ dictConfig({
             "formatter": "default",
             "stream": "ext://sys.stdout",
         },
+        # "email": {
+        #     "class": "logging.handlers.SMTPHandler",
+        #     "formatter": "default",
+        #     "level": "ERROR",
+        #     "mailhost": ("smtp.example.com", 587),
+        #     "fromaddr": "devops@example.com",
+        #     "toaddrs": ["receiver@example.com", "receiver2@example.com"],
+        #     "subject": "Error Logs",
+        #     "credentials": ("username", "password"),
+        # },
         "error_file": {
             "class": "logging.handlers.RotatingFileHandler",
             "formatter": "detailed",

@@ -1,26 +1,20 @@
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
-from urllib.parse import unquote
 
-from sqlalchemy.exc import IntegrityError
-
-from model import Session, Pet, Contato, TipoAnimal, TipoContato
+from model import Session, Pet, Responsavel, Endereco, Contato
 from logger import logger
 from schemas import *
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
-from schemas.tipoanimal import apresenta_tipos_animal
-from schemas.tipocontato import ListagemTiposContatoSchema, apresenta_tipos_contato
-
-info = Info(title="Clínica Veterinária API", version="1.0.0")
+info = Info(title="Cadastro de Pets API", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
 home_tag = Tag(name="Documentação", description="Seleção de documentação: Swagger, Redoc ou RapiDoc")
-pet_tag = Tag(name="Pet", description="Adição, visualização e remoção de pets à base")
-tipo_animal_tag = Tag(name="Tipo Animal", description="Busca do tipo de pet")
-tipo_contato_tag = Tag(name="Tipo Contato", description="Busca do tipo de contato")
-contato_tag = Tag(name="Contato Responsável", description="Adição de uma lista de contatos do resposável à um pet cadastrado na base")
+pet_tag = Tag(name="Pets", description="Adição, visualização e remoção de pets à base")
+responsavel_tag = Tag(name="Responsável", description="Visualização de responsáveis de pets")
+endereco_tag = Tag(name="Endereço", description="Visualização de endereço dos responsáveis de pets")
+contato_tag = Tag(name="Contato", description="Visualização de contato dos responsáveis de pets")
 
 @app.get('/', tags=[home_tag])
 def home():
@@ -28,169 +22,144 @@ def home():
     """
     return redirect('/openapi')
 
-
-@app.post('/pet', tags=[pet_tag],
-          responses={"200": PetViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+@app.post('/pet', tags=[pet_tag], responses={"200": PetViewSchema, "400": ErrorSchema})
 def add_pet(form: PetSchema):
-    """Adiciona um novo pet à base de dados
-
-    Retorna uma representação dos pets e comentários associados.
-    """
+    """Adiciona um novo Pet à base de dados e Retorna uma representação dos items e comentários associados."""
     pet = Pet(
-        nome=form.nome,
-        quantidade=form.quantidade,
-        valor=form.valor)
-    logger.debug(f"Adicionando pet de nome: '{pet.nome}'")
+        artista=form.artista,
+        descricao=form.descricao,
+        formato=form.formato,)
+    logger.debug(f"Adicionando item com o nome: '{pet.nome}'")
     try:
         session = Session()
         session.add(pet)
         session.commit()
-        logger.debug(f"Adicionado pet de nome: '{pet.nome}'")
+        logger.debug(f"Adicionado item com o nome: '{pet.nomoe}'")
         return apresenta_pet(pet), 200
-
-    except IntegrityError as e:
-        error_msg = "Pet de mesmo nome e tipo já salvo na base :/"
-        logger.warning(f"Erro ao adicionar pet ({pet.tipo})'{pet.nome}', {error_msg}")
-        return {"mesage": error_msg}, 409
 
     except Exception as e:
-        error_msg = "Não foi possível salvar novo item :/"
+        error_msg = "Não foi possível salvar novo pet :/"
         logger.warning(f"Erro ao adicionar pet '{pet.nome}', {error_msg}")
-        return {"mesage": error_msg}, 400
+        return {"message": error_msg}, 400
 
 
-@app.get('/pets', tags=[pet_tag],
-         responses={"200": ListagemPetsSchema, "404": ErrorSchema})
+@app.get('/pets', tags=[pet_tag], responses={"200": ListagemPetsSchema, "404": ErrorSchema})
 def get_pets():
-    """Faz a busca por todos os pets cadastrados
-
-    Retorna uma representação da listagem de pets.
-    """
-    logger.debug(f"Coletando pets ")
+    """Faz a busca por todos os Pets cadastrados e retorna uma representação da listagem de pets."""
+    logger.debug(f"Coletando items ")
     session = Session()
-    pets = session.query(Pet).all()
+    items = session.query(Pet).all()
 
-    if not pets:
-        return {"pets": []}, 200
+    if not items:
+        return {"items": []}, 200
     else:
-        logger.debug(f"%d pets encontrados" % len(pets))
-        print(pets)
-        return apresenta_pets(pets), 200
+        logger.debug(f"%d items encontrados" % len(items))
+        print(items)
+        return apresenta_pets(items), 200
 
 
-@app.get('/pet', tags=[pet_tag],
-         responses={"200": PetViewSchema, "404": ErrorSchema})
-def get_pet(query: PetBuscaSchema):
-    """Faz a busca por um Pet a partir do id do pet
-
-    Retorna uma representação dos pets e comentários associados.
-    """
-    pet_id = query.id
-    logger.debug(f"Coletando dados sobre pet #{pet_id}")
-    # criando conexão com a base
+@app.get('/item', tags=[pet_tag], responses={"200": PetViewSchema, "404": ErrorSchema})
+def get_item(query: PetBuscaSchema):
+    """Faz a busca por um Pet a partir do nome do pet  e retorna uma representação dos items."""
+    pet_nome = query.nome
+    logger.debug(f"Coletando dados sobre item #{pet_nome}")    
     session = Session()
-    # fazendo a busca
-    pet = session.query(Pet).filter(Pet.id == pet_id).first()
+    item = session.query(Pet).filter(Pet.descricao == pet_nome).first()
 
-    if not pet:
-        # se o pet não foi encontrado
-        error_msg = "Pet não encontrado na base :/"
-        logger.warning(f"Erro ao buscar pet '{pet_id}', {error_msg}")
+    if not item:
+        error_msg = "Item não encontrado na base :/"
+        logger.warning(f"Erro ao buscar item '{pet_nome}', {error_msg}")
         return {"message": error_msg}, 404
     else:
-        logger.debug(f"Pet econtrado: '{pet.nome}'")
-        # retorna a representação de pet
-        return apresenta_pet(pet), 200
+        logger.debug(f"Pet encontrado: '{item.descricao}'")
+        return apresenta_pet(item), 200
 
 
-@app.delete('/pet', tags=[pet_tag],
-            responses={"200": PetDelSchema, "404": ErrorSchema})
-def del_pet(query: PetBuscaSchema):
-    """Deleta um Pet a partir do nome de pet informado
-
-    Retorna uma mensagem de confirmação da remoção.
-    """
-    pet_nome = unquote(unquote(query.nome))
-    print(pet_nome)
-    logger.debug(f"Deletando dados sobre pet #{pet_nome}")
-    # criando conexão com a base
+@app.delete('/item', tags=[pet_tag], responses={"200": PetDelSchema, "404": ErrorSchema})
+def del_item(query: PetBuscaSchema):
+    """Deleta um Item a partir da descricao de item informado e retorna uma mensagem de confirmação da remoção."""
+    item_descricao = (query.nome)
+    print(item_descricao)
+    logger.debug(f"Deletando dados sobre item #{item_descricao}")
     session = Session()
-    # fazendo a remoção
-    count = session.query(Pet).filter(Pet.nome == pet_nome).delete()
+    count = session.query(Pet).filter(Pet.descricao == item_descricao).delete()
     session.commit()
 
     if count:
-        # retorna a representação da mensagem de confirmação
-        logger.debug(f"Deletado pet #{pet_nome}")
-        return {"mesage": "Pet removido", "id": pet_nome}
+        logger.debug(f"Deletado item #{item_descricao}")
+        return {"message": "Item removido", "id": item_descricao}
     else:
-        # se o pet não foi encontrado
-        error_msg = "Pet não encontrado na base :/"
-        logger.warning(f"Erro ao deletar pet #'{pet_nome}', {error_msg}")
-        return {"mesage": error_msg}, 404
+        error_msg = "Item não encontrado na base :/"
+        logger.warning(f"Erro ao deletar item #'{item_descricao}', {error_msg}")
+        return {"message": error_msg}, 404
 
+@app.get('/responsaveis', tags=[responsavel_tag])
+def get_responsaveis():
+    """ Faz a busca por todos os responsáveis cadastrados na base de dados.
 
-@app.post('/contato', tags=[contato_tag],
-          responses={"200": PetViewSchema, "404": ErrorSchema})
-def add_contato(form: ContatoSchema):
-    """Adiciona de um novo contato à um pet cadastrado na base identificado pelo id
-
-    Retorna uma representação dos pets e contato associados.
+    Retorna para uma representação dos projetos.
     """
-    pet_id  = form.pet_id
-    logger.debug(f"Adicionando contatos ao pet #{pet_id}")    
+    logger.debug(f"Coletando Responsáveis")
     session = Session()
-    pet = session.query(Pet).filter(Pet.id == pet_id).first()
+    responsaveis = session.query(Responsavel).all()
 
-    if not pet:
-        error_msg = "Pet não encontrado na base :/"
-        logger.warning(f"Erro ao adicionar contato ao pet '{pet_id}', {error_msg}")
-        return {"mesage": error_msg}, 404
-
-    texto = form.texto
-    contato = Contato(texto)
-
-    pet.adiciona_contato(contato)
-    session.commit()
-
-    logger.debug(f"Adicionado comentário ao pet #{pet_id}")
-
-    return apresenta_pet(pet), 200
-
-@app.get('/tipos-animal', tags=[tipo_animal_tag],
-    responses={"200": ListagemTiposAnimalPetSchema, "404": ErrorSchema})
-def get_tipos_animal():
-    """Faz a busca por todos os tipos de animal
-
-    Retorna uma representação da listagem de tipos de animal.
-    """
-    logger.debug(f"Coletando tipos de pet ")
-    session = Session()
-    tipos_animal = session.query(TipoAnimal).all()
-
-    if not tipos_animal:
-        return {"tipos": []}, 200
+    if not responsaveis:
+        return {"responsaveis": []}, 200
     else:
-        logger.debug(f"%d tipos de pet encontrados" % len(tipos_animal))
-        # retorna a representação de pet
-        print(tipos_animal)
-        return apresenta_tipos_animal(tipos_animal), 200
+        logger.debug(f"%d Responsáveis encontradas" % len(responsaveis))
+        result = []
+        for responsavel in responsaveis:
+            result.append(
+                {
+                    "id_responsavel": responsavel.id,
+                    "nome": responsavel.nome
+                }
+            )
+        return {"responsaveis": result}
     
 
-@app.get('/tipos-contato', tags=[tipo_contato_tag],
-    responses={"200": ListagemTiposContatoSchema, "404": ErrorSchema})
-def get_tipos_contato():
-    """Faz a busca por todos os tipos de contato
+@app.get('/enderecos', tags=[endereco_tag])
+def get_enderecos():
+    """ Faz a busca por todos os Endereços cadastrados na base de dados.
 
-    Retorna uma representação da listagem de tipos de contato.
+    Retorna para uma representação dos projetos.
     """
-    logger.debug(f"Coletando tipos de contato ")    
+    logger.debug(f"Coletando Endereços")
     session = Session()
-    tipos_contato = session.query(TipoContato).all()
+    enderecos = session.query(Endereco).all()
 
-    if not tipos_contato:
-        return {"tipos": []}, 200
+    if not enderecos:
+        return {"enderecos": []}, 200
     else:
-        logger.debug(f"%d tipos de contato encontrados" % len(tipos_contato))
-        print(tipos_contato)
-        return apresenta_tipos_contato(tipos_contato), 200
+        logger.debug(f"%d Endereços encontrados" % len(enderecos))
+        result = []
+        for endereco in enderecos:
+            result.append(
+                {
+                    "id_endereco": endereco.id,
+                }
+            )
+        return {"enderecos": result}
+    
+@app.get('/contatos', tags=[contato_tag])
+def get_contatos():
+    """ Faz a busca por todos os Contatos cadastrados na base de dados.
+
+    Retorna para uma representação dos projetos.
+    """
+    logger.debug(f"Coletando Contatos")
+    session = Session()
+    contatos = session.query(Contato).all()
+
+    if not contatos:
+        return {"contatos": []}, 200
+    else:
+        logger.debug(f"%d Contatos encontrados" % len(contatos))
+        result = []
+        for contato in contatos:
+            result.append(
+                {
+                    "id_contato": contato.id,
+                }
+            )
+        return {"contatos": result}

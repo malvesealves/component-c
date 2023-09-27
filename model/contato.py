@@ -1,33 +1,29 @@
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
-
-from  model import Base
-
+from model import Base
 
 class Contato(Base):
     __tablename__ = 'contato'
 
-    id = Column(Integer, primary_key=True)
-    responsavel = Column(String(200))
-    contato = Column(String(4000))
+    id = Column("id_contato", Integer, primary_key=True)
+    ddd = Column(String(3))
+    numero = Column(String(10),primary_key=True)    
+    responsavel = relationship('Responsavel')
     data_insercao = Column(DateTime, default=datetime.now())
 
-    tipo_contato = Column(Integer, ForeignKey("tipo_contato.pk_tipo_contato"), unique=True, nullable=False )
-    pet = Column(Integer, ForeignKey("pet.pk_pet"), unique=False, nullable=False)
-
-    def __init__(self, responsavel: str, contato:str, tipo_contato: int, pet: int, data_insercao:Union[DateTime, None] = None):
+    def __init__(self, artista: str, descricao: str, formato: str, data_insercao:Union[DateTime, None] = None):
         """
-        Cria um Contato
+        Cria o contato para responsável pelo pet
 
         Arguments:
-            responsavel: nome do responsável
-            texto: o contato do responsável.
-            data_insercao: data de quando o contato do responsável foi inserido à base
+            ddd: ddd do contato do responsável pelo pelo
+            numero: número do contato do responsável pelo pelo
+            data_insercao: data de quando o contato foi inserido à base
         """
-        self.responsavel = responsavel
-        self.contato = contato
-        self.tipo_contato = tipo_contato
-        self.pet = pet
+        self.ddd = artista
+        self.numero = descricao
+
         if data_insercao:
             self.data_insercao = data_insercao
