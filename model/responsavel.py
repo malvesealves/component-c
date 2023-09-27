@@ -16,7 +16,7 @@ class Responsavel(Base):
     endereco = relationship('Endereco')
     data_insercao = Column(DateTime, default=datetime.now())
 
-    def __init__(self, nome: str, idade: str, id_contato: Integer, id_endereco: Integer, data_insercao:Union[DateTime, None] = None):
+    def __init__(self, nome: str, id_contato: Integer, id_endereco: Integer, data_insercao:Union[DateTime, None] = None):
         """
         Cria um Responsável de Pet
 

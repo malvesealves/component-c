@@ -1,32 +1,19 @@
-[2023-09-27 17:10:37,284] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:02,975] INFO _log() L224   * Running on all addresses (0.0.0.0)
-   WARNING: This is a development server. Do not use it in a production deployment.
- * Running on http://127.0.0.1:5000
- * Running on http://192.168.68.105:5000 (Press CTRL+C to quit) - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:02,975] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:15,369] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:15] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:15,460] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:15] "GET /openapi/static/css/swagger-ui.css HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:15,460] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:15] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:15,460] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:15] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:15,539] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:15] "GET /openapi/static/images/swagger.svg HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:15,554] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:15] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:31,271] INFO _log() L224   * Running on all addresses (0.0.0.0)
+[2023-09-27 19:56:24,505] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 19:57:35,315] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\schemas\\pet.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 19:57:35,357] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:22,708] INFO _log() L224   * Running on all addresses (0.0.0.0)
    WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:8000
  * Running on http://192.168.68.105:8000 (Press CTRL+C to quit) - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:31,271] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:37,004] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:37] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:37,081] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:37] "GET /openapi/static/css/swagger-ui.css HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:37,081] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:37] "GET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:37,081] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:37] "GET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:37,175] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:37] "GET /openapi/static/images/swagger.svg HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:14:37,194] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 19:14:37] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:24:12,108] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\app.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:24:12,140] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:29:41,558] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\model\\pet.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:29:41,590] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:33:24,879] INFO _log() L224   * Running on all addresses (0.0.0.0)
-   WARNING: This is a development server. Do not use it in a production deployment.
- * Running on http://127.0.0.1:8000
- * Running on http://192.168.68.105:8000 (Press CTRL+C to quit) - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-09-27 19:33:24,879] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:22,709] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:27,618] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 20:11:27] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:27,707] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 20:11:27] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:27,708] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 20:11:27] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:27,711] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 20:11:27] "GET /openapi/static/css/swagger-ui.css HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:11:27,832] INFO _log() L224  127.0.0.1 - - [27/Sep/2023 20:11:27] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:12:02,848] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\schemas\\pet.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:12:02,889] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:12:05,191] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\schemas\\pet.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:12:05,234] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:12:08,558] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\schemas\\pet.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:12:08,607] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 

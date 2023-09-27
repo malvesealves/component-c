@@ -1,13 +1,20 @@
-from pydantic import BaseModel
+from pydantic import BaseModel as PydanticBaseModel
 from typing import List
 from model.pet import Pet
+from model.responsavel import Responsavel
+from model.contato import Contato
+from model.endereco import Endereco
+
+class BaseModel(PydanticBaseModel):
+    class Config:
+        arbitrary_types_allowed = True
 
 class PetSchema(BaseModel):
     """ Define como um novo pet a ser inserido deve ser representado"""
     tipo: str = "Cachorro"
     nome: str = "Thor"
     idade: str = "1"
-    id_responsavel: int = 1     
+    id_responsavel: int = 1
 
 class PetBuscaSchema(BaseModel):
     """ Define como deve ser a estrutura que representa a busca. Que será

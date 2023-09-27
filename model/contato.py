@@ -13,7 +13,7 @@ class Contato(Base):
     responsavel = relationship('Responsavel')
     data_insercao = Column(DateTime, default=datetime.now())
 
-    def __init__(self, artista: str, descricao: str, formato: str, data_insercao:Union[DateTime, None] = None):
+    def __init__(self, ddd: str, descricao: str, data_insercao:Union[DateTime, None] = None):
         """
         Cria o contato para responsável pelo pet
 
@@ -22,7 +22,7 @@ class Contato(Base):
             numero: número do contato do responsável pelo pelo
             data_insercao: data de quando o contato foi inserido à base
         """
-        self.ddd = artista
+        self.ddd = ddd
         self.numero = descricao
 
         if data_insercao:
