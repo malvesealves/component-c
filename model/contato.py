@@ -9,7 +9,7 @@ class Contato(Base):
 
     id = Column("id_contato", Integer, primary_key=True)
     ddd = Column(String(3))
-    numero = Column(String(10),primary_key=True)    
+    numero = Column(String(10))    
     responsavel = relationship('Responsavel')
     data_insercao = Column(DateTime, default=datetime.now())
 

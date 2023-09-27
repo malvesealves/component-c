@@ -17,3 +17,5 @@
 [2023-09-27 20:12:05,234] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-27 20:12:08,558] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\schemas\\pet.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-27 20:12:08,607] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:16:15,484] INFO _log() L224   * Detected change in 'C:\\Users\\malve\\source\\repos\\sprint-2\\component-c\\model\\contato.py', reloading - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-27 20:16:15,538] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\malve\source\repos\sprint-2\component-c\venv\Lib\site-packages\werkzeug\_internal.py L224 
